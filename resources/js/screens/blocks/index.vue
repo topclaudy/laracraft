@@ -34,6 +34,10 @@
                 </template>
             </el-table-column>
 
+            <el-table-column prop="themes_count" label="Theme Usages" align="right"></el-table-column>
+
+            <el-table-column prop="regions_count" label="Regions Usages" align="right"></el-table-column>
+
             <el-table-column align="right">
                 <template slot-scope="scope">
                     <el-button type="danger" plain icon="el-icon-delete" size="mini" @click="deleteBlockById(scope.row)"></el-button>

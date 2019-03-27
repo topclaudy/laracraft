@@ -14,6 +14,8 @@ class Block extends Base
 
     protected $guarded = [];
 
+    protected $appends = ['regions_count', 'themes_count'];
+
     const TYPE_COMPONENT = 'component';
     const TYPE_IMAGE = 'image';
     const TYPE_WYSIWYG = 'wysiwyg';
@@ -38,5 +40,22 @@ class Block extends Base
 
     public function regions(){
         return $this->belongsToMany(Region::class, 'laracraft_layout_region_block')->withTimestamps()->withPivot('order', 'settings')->using(RegionBlock::class)->orderBy('name');
+    }
+
+    public function getRegionsCountAttribute(){
+        return $this->regions()->count();
+    }
+
+    public function getThemesCountAttribute(){
+        $regions = $this->regions()->setEagerLoads([])->get();
+
+        $themeIds = collect();
+
+        foreach($regions as $region){
+            $themeIds->push($region->theme_id);
+        }
+
+        return $themeIds->unique()->count();
+
     }
 }
