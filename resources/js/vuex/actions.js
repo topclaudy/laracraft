@@ -12,14 +12,15 @@ export default {
         INDEX: 'action-block-index',
         GET: 'action-block-get',
         POST: 'action-block-post',
-        PUT: 'action-block-put'
+        PUT: 'action-block-put',
+        DELETE: 'action-block-delete'
     },
 
     component: {
         LOADING: 'action-loading-loading',
         INDEX: 'action-component-index',
         GET: 'action-component-get',
-        PUT: 'action-component-put',
+        PUT: 'action-component-put'
     }
 };
 

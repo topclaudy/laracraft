@@ -33,12 +33,19 @@
                     </div>
                 </template>
             </el-table-column>
+
+            <el-table-column align="right">
+                <template slot-scope="scope">
+                    <el-button type="danger" plain icon="el-icon-delete" size="mini" @click="deleteBlockById(scope.row)"></el-button>
+                </template>
+            </el-table-column>
         </el-table>
     </div>
 </template>
 
 <script>
     import {mapState, mapActions} from 'vuex';
+    import storeActions from "../../vuex/actions";
 
     export default {
         name: "screen-blocks",
@@ -67,8 +74,20 @@
         },
 
         methods: {
+            ...mapActions({
+                deleteBlock: storeActions.block.DELETE
+            }),
+
             showBlockEditor(blockId){
                 this.$router.push({ name: 'block-edit', params: { id: blockId } });
+            },
+
+            deleteBlockById(block){
+                this.deleteBlock(block).then((response) => {
+
+                }, (error) => {
+                    console.error(error);
+                });
             }
         }
     }
