@@ -1,0 +1,39 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "npm run development",
+    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "npm run development -- --watch",
+    "watch-poll": "npm run watch -- --watch-poll",
+    "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "prod": "npm run production",
+    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+  },
+  "devDependencies": {
+    "axios": "^0.18.0",
+    "colors-sass": "^1.0.0",
+    "cross-env": "^5.2.0",
+    "element-ui": "^2.6.3",
+    "hamburgers": "^1.1.3",
+    "laravel-mix": "^4.0.15",
+    "lodash": "^4.17.11",
+    "portal-vue": "^1.5.1",
+    "quill": "^1.3.6",
+    "resolve-url-loader": "2.3.1",
+    "sass": "^1.17.3",
+    "sass-loader": "7.*",
+    "store": "^2.0.12",
+    "tailwindcss": "^0.7.4",
+    "vue": "^2.6.10",
+    "vue-axios": "^2.1.4",
+    "vue-bus": "^1.2.1",
+    "vue-croppie": "^1.3.13",
+    "vue-quill-editor": "^3.0.6",
+    "vue-router": "^3.0.2",
+    "vue-template-compiler": "^2.6.10",
+    "vue-textarea-autosize": "^1.0.4",
+    "vuedraggable": "^2.20.0",
+    "vuejs-storage": "^3.0.1",
+    "vuex": "^3.1.0"
+  }
+}

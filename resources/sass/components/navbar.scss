@@ -1,0 +1,28 @@
+//noinspection CssInvalidAtRule
+.nav-bar {
+  z-index: $navbar-z;
+  @apply .w-full .flex .items-center .justify-between .flex-wrap .bg-white .px-6 .py-2 .shadow .fixed;
+
+  .brand {
+    @apply .flex items-center .flex-no-shrink .text-primary .mr-6 .font-semibold .text-xl .tracking-tight;
+  }
+
+  .hamburger {
+    @apply .flex .items-center .px-3 .py-2 .text-grey-dark;
+  }
+
+  .nav-item {
+    transition: 0.3s;
+
+    @apply .block .text-grey-darker .mr-6;
+
+    &:hover {
+      @apply .text-grey-darkest;
+    }
+
+    @screen md {
+      @apply .inline-block .mt-0;
+    }
+  }
+}
+

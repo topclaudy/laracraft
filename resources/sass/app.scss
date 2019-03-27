@@ -1,0 +1,121 @@
+/*
+|--------------------------------------------------------------------------
+| Fonts
+|--------------------------------------------------------------------------
+|
+*/
+@import url(https://fonts.googleapis.com/css?family=Nunito);
+
+@tailwind preflight;
+
+/*
+|--------------------------------------------------------------------------
+| Variables and utilities
+|--------------------------------------------------------------------------
+|
+*/
+@import "variables";
+@import "utilities";
+
+@tailwind utilities;
+
+/*
+|--------------------------------------------------------------------------
+| Libs
+|--------------------------------------------------------------------------
+|
+*/
+
+@import "~element-ui/packages/theme-chalk/src/index";
+@import "~hamburgers/_sass/hamburgers/hamburgers";
+
+/*
+|--------------------------------------------------------------------------
+| App components
+|--------------------------------------------------------------------------
+|
+*/
+
+@import "components/navbar";
+@import "components/toolbar";
+@import "components/sidebar";
+
+/*
+|--------------------------------------------------------------------------
+| Styles Overrides
+|--------------------------------------------------------------------------
+|
+*/
+@import "overrides/styles/element-ui";
+@import "overrides/styles/hamburgers";
+
+body {
+  background-color: #E8EEF0;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 1rem;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  &.page {
+    background-color: white;
+  }
+
+  &.full-vh {
+    height: 100vh;
+  }
+
+  footer {
+    @apply .flex-grow .bg-grey-lighter .fixed .p-4 .w-full;
+    bottom: 0;
+    z-index: $footer-z;
+  }
+}
+
+a {
+  text-decoration: none !important;
+  @apply .text-primary;
+}
+
+a:hover {
+  text-decoration: none !important;
+  @apply .text-orange;
+}
+
+[v-cloak] {
+  display: none !important;
+}
+
+.content-wrapper {
+  @apply .flex-grow .p-4 .w-full;
+  margin-top: $navbar-height;
+  transition: all 0.3s;
+
+  body.page & {
+    @apply .px-0 .pt-0;
+  }
+}
+
+.toolbar:not(.closed) + .content-wrapper {
+  margin-left: ($toolbar-width);
+}
+
+.toolbar:not(.closed) + .sidebar:not(.closed) + .content-wrapper {
+  margin-left: ($toolbar-width + $sidebar-width);
+}
+
+.icon {
+  display: inline-block;
+  font-size: inherit;
+  height: 1em;
+  overflow: visible;
+  vertical-align: -.125em;
+}
+
+.header-bar {
+  @apply .inline-block;
+}
+
+
+

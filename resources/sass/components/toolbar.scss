@@ -1,0 +1,64 @@
+//noinspection CssInvalidAtRule
+.toolbar {
+  width: $toolbar-width;
+  height: 100vh;
+  top: 0;
+  z-index: $toolbar-z;
+  padding-top: $navbar-height + $toolbar-padding;
+  padding-bottom: 100px;
+  transition: all 0.3s;
+  @apply .flex .flex-wrap .content-start .fixed .bg-grey-darkest .px-0;
+
+  .content {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    @apply .flex .flex-wrap .content-start .py-1;
+  }
+
+  &.closed {
+    height: auto;
+    padding: $toolbar-padding * 0.5;
+    padding-top: $navbar-height + $toolbar-padding;
+
+    .content {
+      display: none;
+    }
+
+    + .sidebar {
+      left: 0;
+
+      &.closed {
+        + .content-wrapper { //When toolbar is closed and left sidebar is closed
+          margin-left: 0 !important;
+        }
+      }
+    }
+
+    + .sidebar:not(.closed){
+      + .content-wrapper { //When toolbar is closed and left sidebar is NOT closed
+        margin-left: $sidebar-width !important;
+      }
+
+      .hamburger-toggle {
+        @apply .float-right;
+      }
+    }
+  }
+
+  .toolbar-item {
+    @apply .w-full .py-2 .text-center .text-primary;
+
+    &:hover {
+      @apply .bg-grey-darker;
+    }
+
+    &.active, &.router-link-active {
+      @apply .bg-white .text-primary .border-0 .border-l-4 .border-solid;
+    }
+
+    .icon {
+      @apply .w-6 .h-6;
+    }
+  }
+}

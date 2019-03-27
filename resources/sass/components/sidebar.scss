@@ -1,0 +1,43 @@
+//noinspection CssInvalidAtRule
+.sidebar {
+  width: $sidebar-width;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  z-index: $sidebar-z;
+  transition: all 0.3s;
+  padding: $sidebar-padding;
+  padding-top: $navbar-height + $sidebar-padding;
+  @apply .bg-white .mr-1;
+  left: $toolbar-width;
+  transform-origin: left top;
+
+  .content {
+    height: 100%;
+    @apply .py-1;
+    margin-bottom: 150px;
+  }
+
+  .hamburger-toggle {
+    transition: all 0.3s;
+  }
+
+  &.closed {
+    left: -($sidebar-width + ($sidebar-padding * 1.5) - ($toolbar-width * 2) ) !important;
+    height: auto;
+    padding: $sidebar-padding * 0.5;
+    padding-top: $navbar-height + $sidebar-padding;
+
+    .content {
+      display: none;
+    }
+
+    .hamburger-toggle {
+      @apply .float-right;
+    }
+
+    + .content-wrapper {
+      margin-left: ($toolbar-width) !important;
+    }
+  }
+}

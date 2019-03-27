@@ -1,0 +1,26 @@
+/*-----------------Misc------------------*/
+
+.clear-left {
+  clear: left !important;
+}
+
+.clear-right {
+  clear: right !important;
+}
+
+.clear-both {
+  clear: both !important;
+}
+
+svg.path-fill-current {
+  path {
+    @apply .fill-current;
+  }
+}
+
+svg.path-stroke-current {
+  path {
+    @apply .stroke-current;
+  }
+}
+

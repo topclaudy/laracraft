@@ -1,0 +1,31 @@
+$header-height: 55px;
+
+$navbar-height: 48px;
+$navbar-z: 1000;
+
+$toolbar-width: 50px;
+$toolbar-z: $navbar-z - 1;
+$toolbar-padding: 12px;
+
+$sidebar-width: 200px;
+$sidebar-z: $toolbar-z - 1;
+$sidebar-padding: 12px;
+
+$sidemenu-width: 250px;
+$sidemenu-z: 1002;
+
+$footer-z: 1000;
+$footer-height: 1000;
+
+/*
+|--------------------------------------------------------------------------
+| Variables Overrides
+|--------------------------------------------------------------------------
+|
+*/
+
+@import "overrides/variables/element-ui";
+@import "overrides/variables/hamburgers";
+
+
+
