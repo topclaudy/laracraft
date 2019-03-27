@@ -28,12 +28,6 @@ export default [
     },
 
     {
-        path: '/blocks/:id',
-        name: 'block',
-        component: require('./screens/blocks/show').default
-    },
-
-    {
         path: '/components',
         name: 'components',
         component: require('./screens/components/index').default

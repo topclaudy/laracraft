@@ -1,6 +1,6 @@
 <template>
     <div class="w-2/3">
-        <el-form ref="form" :model="blockBuffer" label-width="120px">
+        <el-form ref="form" :model="blockBuffer" label-width="120px" v-loading="processing">
             <el-form-item label="Title">
                 <el-input v-model="blockBuffer.name"></el-input>
             </el-form-item>
@@ -17,7 +17,7 @@
             </el-form-item>
 
             <el-form-item label="Component" v-if="blockBuffer.type === 'component'">
-                <el-select v-model="blockBuffer.resource" placeholder="select component">
+                <el-select v-model="blockBuffer.resource" placeholder="select component" no-data-text="No components found">
                     <el-option
                             v-for="component in components"
                             :key="component.class"
@@ -35,7 +35,7 @@
             </el-form-item>
 
             <el-form-item>
-                <el-button type="primary" @click="updateOrCreate">
+                <el-button type="primary" @click="updateOrCreate" :disabled="!canSave">
                     <span v-if="!blockBuffer.id">Create</span>
                     <span v-else="">Update</span>
                 </el-button>
@@ -79,14 +79,30 @@
                 editorOption: {
                     theme: 'snow',
                     placeholder: "Custom content goes here..."
-                }
+                },
+
+                processing: false
             }
         },
 
         computed: {
             ...mapState({
                 components: ({componentModule}) => componentModule.items
-            })
+            }),
+
+            canSave(){
+                return this.blockBuffer.name && this.blockBuffer.type && this.blockBuffer.resource;
+            }
+        },
+
+        watch: {
+            'blockBuffer.type': {
+                handler(newValue, oldValue){
+                    if(oldValue === 'wysiwyg'){
+                        this.blockBuffer.resource = null;
+                    }
+                }
+            }
         },
 
         mounted(){
@@ -123,13 +139,11 @@
                 this.processing = true;
 
                 this.createBlock(this.blockBuffer).then(response => {
-                    //this.processing = false;
-                    //this.show = false;
+                    this.processing = false;
                     this.resetBuffer();
                     this.$router.go(-1);
-                    //this.$emit('holding-created', response.data)
                 }).catch(error => {
-                    //this.processing = false;
+                    this.processing = false;
                     console.log(error);
                 });
             },
@@ -138,13 +152,11 @@
                 this.processing = true;
 
                 this.updateBlock(this.blockBuffer).then(response => {
-                    //this.processing = false;
-                    //this.show = false;
+                    this.processing = false;
                     this.resetBuffer(response.data);
                     this.$router.go(-1);
-                    //this.$emit('holding-updated', response.data)
                 }).catch(error => {
-                    //this.processing = false;
+                    this.processing = false;
                     console.log(error);
                 });
             },
