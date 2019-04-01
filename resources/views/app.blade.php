@@ -70,7 +70,7 @@
     </div>
 
     @section('footer')
-        <footer>
+        <footer class="text-grey-dark">
             <span class="mr-1">Laracraft © 2018-{{ date('Y') }}. Crafted with love by </span><a href="http://www.awobaz.com" target="_blank">Awobaz Technologies Inc.</a>
         </footer>
     @show

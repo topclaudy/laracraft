@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full sm:w-2/3 xl:w-1/3">
+    <div class="w-full w-2/3">
         <el-card class="box-card">
             <div slot="header" class="clearfix">
                 <span><strong>Block Editor</strong></span>
