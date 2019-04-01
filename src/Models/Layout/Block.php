@@ -19,11 +19,13 @@ class Block extends Base
     const TYPE_COMPONENT = 'component';
     const TYPE_IMAGE = 'image';
     const TYPE_WYSIWYG = 'wysiwyg';
+    const TYPE_MARKDOWN = 'markdown';
 
     const TYPES = [
         self::TYPE_COMPONENT,
         self::TYPE_IMAGE,
-        self::TYPE_WYSIWYG
+        self::TYPE_WYSIWYG,
+        self::TYPE_MARKDOWN
     ];
 
     /**

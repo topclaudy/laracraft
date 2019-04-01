@@ -4,6 +4,7 @@ namespace Awobaz\Laracraft\View\Concerns;
 
 use Awobaz\Laracraft\Models\Layout\Block;
 use Illuminate\Contracts\Support\Htmlable;
+use Parsedown;
 
 trait ManagesLayouts
 {
@@ -31,6 +32,12 @@ trait ManagesLayouts
 
             case Block::TYPE_WYSIWYG:
                 $blockContent = $block->resource;
+
+                break;
+
+            case Block::TYPE_MARKDOWN:
+                $parser = new Parsedown();
+                $blockContent = $parser->text($block->resource);
 
                 break;
         }

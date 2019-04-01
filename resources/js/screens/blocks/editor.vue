@@ -1,47 +1,58 @@
 <template>
-    <div class="w-2/3">
-        <el-form ref="form" :model="blockBuffer" label-width="120px" v-loading="processing">
-            <el-form-item label="Title">
-                <el-input v-model="blockBuffer.name"></el-input>
-            </el-form-item>
+    <div class="w-full sm:w-2/3 xl:w-1/3">
+        <el-card class="box-card">
+            <div slot="header" class="clearfix">
+                <span><strong>Block Editor</strong></span>
+            </div>
 
-            <el-form-item label="Description">
-                <el-input type="textarea" v-model="blockBuffer.description"></el-input>
-            </el-form-item>
+            <el-form ref="form" :model="blockBuffer" label-width="120px" v-loading="processing">
+                <el-form-item label="Title">
+                    <el-input v-model="blockBuffer.name"></el-input>
+                </el-form-item>
 
-            <el-form-item label="Type">
-                <el-select v-model="blockBuffer.type" placeholder="select type">
-                    <el-option label="Component" value="component"></el-option>
-                    <el-option label="WYSIWYG" value="wysiwyg"></el-option>
-                </el-select>
-            </el-form-item>
+                <el-form-item label="Description">
+                    <el-input type="textarea" v-model="blockBuffer.description"></el-input>
+                </el-form-item>
 
-            <el-form-item label="Component" v-if="blockBuffer.type === 'component'">
-                <el-select v-model="blockBuffer.resource" placeholder="select component" no-data-text="No components found">
-                    <el-option
-                            v-for="component in components"
-                            :key="component.class"
-                            :label="component.name"
-                            :value="component.class">
-                    </el-option>
-                </el-select>
-            </el-form-item>
+                <el-form-item label="Type">
+                    <el-select v-model="blockBuffer.type" placeholder="select type">
+                        <el-option label="Component" value="component"></el-option>
+                        <el-option label="WYSIWYG" value="wysiwyg"></el-option>
+                        <el-option label="Markdown" value="markdown"></el-option>
+                    </el-select>
+                </el-form-item>
 
-            <el-form-item label="Custom content" v-if="blockBuffer.type === 'wysiwyg'">
-                <quill-editor v-model="blockBuffer.resource" class="bg-white"
-                              ref="quillEditor"
-                              :options="editorOption">
-                </quill-editor>
-            </el-form-item>
+                <el-form-item label="Component" v-if="blockBuffer.type === 'component'">
+                    <el-select v-model="blockBuffer.resource" placeholder="select component" no-data-text="No components found">
+                        <el-option
+                                v-for="component in components"
+                                :key="component.class"
+                                :label="component.name"
+                                :value="component.class">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
 
-            <el-form-item>
-                <el-button type="primary" @click="updateOrCreate" :disabled="!canSave">
-                    <span v-if="!blockBuffer.id">Create</span>
-                    <span v-else="">Update</span>
-                </el-button>
-                <el-button @click="cancel">Cancel</el-button>
-            </el-form-item>
-        </el-form>
+                <el-form-item label="Custom content" v-if="blockBuffer.type === 'wysiwyg'">
+                    <quill-editor v-model="blockBuffer.resource" class="bg-white"
+                                  ref="quillEditor"
+                                  :options="editorOption">
+                    </quill-editor>
+                </el-form-item>
+
+                <el-form-item label="Markdown" v-if="blockBuffer.type === 'markdown'">
+                    <el-input type="textarea" v-model="blockBuffer.resource"></el-input>
+                </el-form-item>
+
+                <el-form-item>
+                    <el-button type="primary" @click="updateOrCreate" :disabled="!canSave">
+                        <span v-if="!blockBuffer.id">Create</span>
+                        <span v-else="">Update</span>
+                    </el-button>
+                    <el-button @click="cancel">Cancel</el-button>
+                </el-form-item>
+            </el-form>
+        </el-card>
     </div>
 </template>
 
