@@ -41,16 +41,19 @@
                             {{ region.name }}
                         </div>
 
-                        <span v-if="!region.blocks || region.blocks.length === 0" class="text-grey-darker p-2 block italic">No blocks in this region</span>
+                        <div class="p-4 border border-dashed">
 
-                        <draggable :list="region.blocks" :group="{name: `blocks-in-region-${regionIndex}`, put: 'blocks', pull: false}" class="p-4 border border-dashed" @change="log" @add="blockAdded" @update="blockUpdated">
-                            <div class="flex justify-between items-center block p-3 text-grey-dark cursor-move" v-for="(block, blockIndex) in region.blocks" :class="{'bg-grey-lightest': (blockIndex % 2) === 0}">
-                                <div class="float-left">{{ block.name }}</div>
-                                <div class="float-right">
-                                    <el-button type="danger" plain icon="el-icon-delete" size="mini" @click="removeBlock(region.id, block.id)"></el-button>
+                            <span v-if="!region.blocks || region.blocks.length === 0" class="text-grey-darker p-2 block italic">No blocks in this region</span>
+
+                            <draggable :list="region.blocks" :group="{name: `blocks-in-region-${regionIndex}`, put: 'blocks', pull: false}" @change="log" @add="blockAdded" @update="blockUpdated">
+                                <div class="flex justify-between items-center block p-3 text-grey-dark cursor-move" v-for="(block, blockIndex) in region.blocks" :class="{'bg-grey-lightest': (blockIndex % 2) === 0}">
+                                    <div class="float-left">{{ block.name }}</div>
+                                    <div class="float-right">
+                                        <el-button type="danger" plain icon="el-icon-delete" size="mini" @click="removeBlock(region.id, block.id)"></el-button>
+                                    </div>
                                 </div>
-                            </div>
-                        </draggable>
+                            </draggable>
+                        </div>
                     </div>
                 </el-card>
             </div>

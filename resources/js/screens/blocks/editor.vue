@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full w-2/3">
+    <div class="w-2/3">
         <el-card class="box-card">
             <div slot="header" class="clearfix">
                 <span><strong>Block Editor</strong></span>
@@ -109,7 +109,7 @@
         watch: {
             'blockBuffer.type': {
                 handler(newValue, oldValue){
-                    if(oldValue === 'wysiwyg'){
+                    if(oldValue) {
                         this.blockBuffer.resource = null;
                     }
                 }
