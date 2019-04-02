@@ -4,7 +4,6 @@ namespace Awobaz\Laracraft\Console\Commands;
 
 use Awobaz\Laracraft\Models\Layout\Region;
 use Awobaz\Laracraft\Models\Layout\Theme;
-use Awobaz\Laracraft\Util;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
@@ -44,14 +43,12 @@ class InstallThemes extends Base
      */
     public function handle()
     {
-        //Util::getDefinedBlockComponents();
-
         try {
             $this->infoWithTimestamp('Installing themes...');
 
             $themesPath = config('laracraft.theme_paths') ?: [];
 
-            $themesPath = array_map(function($path) {
+            $themesPath = array_map(function ($path) {
                 return $this->viewsPath.DIRECTORY_SEPARATOR.$path;
             }, $themesPath);
 
@@ -59,14 +56,14 @@ class InstallThemes extends Base
 
             DB::statement('TRUNCATE TABLE laracraft_layout_regions');
 
-            foreach($themesPath as $path){
+            foreach ($themesPath as $path) {
                 $this->installThemeFromPath($path);
             }
 
             DB::commit();
 
             $this->infoWithTimestamp('Themes were installed successfully.');
-        } catch(Exception $e){
+        } catch (Exception $e) {
             DB::rollBack();
             $this->errorWithTimestamp('An error occurred: '.$e->getMessage());
         }
@@ -78,7 +75,7 @@ class InstallThemes extends Base
 
         $themeFiles = glob($path."/*".$themeExtension);
 
-        $themeKeys = array_map(function($theme) use ($themeExtension) {
+        $themeKeys = array_map(function ($theme) use ($themeExtension) {
             $themeKey = basename($theme);
             $themeKey = str_replace($themeExtension, '', $themeKey);
 
@@ -87,11 +84,11 @@ class InstallThemes extends Base
 
         $themes = array_combine($themeKeys, $themeFiles);
 
-        foreach($themes as $key => $file) {
+        foreach ($themes as $key => $file) {
             $theme = Theme::firstOrCreate([
-                'path' => $file
+                'path' => $file,
             ], [
-                'relative_path' => str_replace($this->viewsPath.DIRECTORY_SEPARATOR, '', $file)
+                'relative_path' => str_replace($this->viewsPath.DIRECTORY_SEPARATOR, '', $file),
             ]);
 
             //Register theme's regions
@@ -104,7 +101,8 @@ class InstallThemes extends Base
                     $region = new Region();
                     $region->name = $name;
 
-                    $theme->regions()->save($region);
+                    $theme->regions()
+                        ->save($region);
                 });
             }
 
