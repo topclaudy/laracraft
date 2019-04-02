@@ -22,6 +22,14 @@
                                         <span class="cursor-pointer"><i class="el-icon-view"></i></span>
                                     </el-tooltip>
                                 </div>
+                                <div v-if="block.type === 'markdown'" class="text-grey-light">
+                                    <el-tooltip placement="left" effect="light">
+                                        <div slot="content">
+                                            <div v-html="marked(block.resource, {sanitize: true})"></div>
+                                        </div>
+                                        <span class="cursor-pointer"><i class="el-icon-view"></i></span>
+                                    </el-tooltip>
+                                </div>
                             </div>
                         </div>
                     </draggable>
@@ -66,6 +74,7 @@
     import {mapActions, mapState} from "vuex";
     import storeActions from '../../vuex/actions'
     import {findIndex} from 'lodash';
+    import * as marked from "marked";
 
     export default {
         name: "screen-theme-configure",
@@ -149,6 +158,10 @@
                 }, (error) => {
                     console.error(error);
                 });
+            },
+
+            marked(value, options){
+                return marked(value, options);
             },
 
             log(event) {

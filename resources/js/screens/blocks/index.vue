@@ -31,6 +31,15 @@
                             <span class="cursor-pointer"><i class="el-icon-view"></i></span>
                         </el-tooltip>
                     </div>
+                    <div v-if="scope.row.type === 'markdown'">
+                        Markdown
+                        <el-tooltip placement="left" effect="light">
+                            <div slot="content">
+                                <div v-html="marked(scope.row.resource, {sanitize: true})"></div>
+                            </div>
+                            <span class="cursor-pointer"><i class="el-icon-view"></i></span>
+                        </el-tooltip>
+                    </div>
                 </template>
             </el-table-column>
 
@@ -50,6 +59,7 @@
 <script>
     import {mapState, mapActions} from 'vuex';
     import storeActions from "../../vuex/actions";
+    import * as marked from "marked";
 
     export default {
         name: "screen-blocks",
@@ -92,6 +102,10 @@
                 }, (error) => {
                     console.error(error);
                 });
+            },
+
+            marked(value, options){
+                return marked(value, options);
             }
         }
     }

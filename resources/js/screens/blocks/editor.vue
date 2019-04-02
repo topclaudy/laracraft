@@ -41,7 +41,14 @@
                 </el-form-item>
 
                 <el-form-item label="Markdown" v-if="blockBuffer.type === 'markdown'">
-                    <el-input type="textarea" v-model="blockBuffer.resource"></el-input>
+                    <el-tabs type="border-card" class="shadow-none">
+                        <el-tab-pane label="Write">
+                            <el-input type="textarea" v-model="blockBuffer.resource" :autosize="{ minRows: 2, maxRows: 6}" @change="updateMardownPreview"></el-input>
+                        </el-tab-pane>
+                        <el-tab-pane label="Preview">
+                            <div v-html="compiledMarkdownContent"></div>
+                        </el-tab-pane>
+                    </el-tabs>
                 </el-form-item>
 
                 <el-form-item>
@@ -65,6 +72,8 @@
 
     import {mapState, mapActions} from 'vuex';
     import storeActions from '../../vuex/actions'
+    import {debounce} from "lodash";
+    import * as marked from "marked";
 
     export default {
         name: "screen-block-editor",
@@ -87,6 +96,8 @@
                     resource: null
                 },
 
+                markdownContent: null,
+
                 editorOption: {
                     theme: 'snow',
                     placeholder: "Custom content goes here..."
@@ -103,6 +114,14 @@
 
             canSave(){
                 return this.blockBuffer.name && this.blockBuffer.type && this.blockBuffer.resource;
+            },
+
+            compiledMarkdownContent: function () {
+                if(this.markdownContent) {
+                    return marked(this.markdownContent, {sanitize: true})
+                }
+
+                return null;
             }
         },
 
@@ -133,6 +152,10 @@
                 updateBlock: storeActions.block.PUT
             }),
 
+            updateMardownPreview: debounce(function () {
+                this.markdownContent = this.blockBuffer.resource
+            }, 300),
+
             resetBuffer(data){
                 if(data){
                     this.blockBuffer = JSON.parse(JSON.stringify(data));
@@ -144,6 +167,8 @@
                         resource: null
                     };
                 }
+
+                this.markdownContent = this.blockBuffer.resource
             },
 
             create(){
